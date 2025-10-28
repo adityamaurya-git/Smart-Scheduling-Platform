@@ -30,12 +30,15 @@ async function registerAdmin(req, res){
     res.cookie("token" ,token);
     res.status(201).json({
         message:"Admin registered successfully",
-        admin
+        admin:{
+            _id: admin._id,
+            email: admin.email,
+            fullName: admin.fullName
+        }
     })
 }
 
 async function loginAdmin(req, res){
-    console.log(req.body)
     const {email , password} = req.body;
 
     const admin = await adminModel.findOne({email});
@@ -75,8 +78,31 @@ async function logoutAdmin(req , res){
     })
 }
 
+async function getAdminDetails(req , res){
+    const token = req.cookies.token;
+    if(!token){
+        return res.status(401).json({
+            message:"Unauthorized"
+        })
+    }
+
+    const decoded = jwt.verify(token , process.env.JWT_SECRET);
+    const admin = await adminModel.findById(decoded.id).select('-password -__v');
+
+    if(!admin){
+        return res.status(401).json({
+            message:"Unauthorized || admin not found"
+        })
+    }
+
+    res.status(200).json({
+        admin
+    })
+}
+
 module.exports = {
     registerAdmin,
     loginAdmin,
-    logoutAdmin
+    logoutAdmin,
+    getAdminDetails
 }

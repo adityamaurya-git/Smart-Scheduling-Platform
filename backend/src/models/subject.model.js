@@ -1,13 +1,5 @@
 const mongoose = require('mongoose');
 
-/**
- * =====================================================================================
- * COURSE SCHEMA
- * =====================================================================================
- * Defines a course to be scheduled. It contains hard constraints that the
- * scheduling engine must satisfy.
- * =====================================================================================
- */
 const subjectSchema = new mongoose.Schema({
     subjectName: { 
         type: String, 
@@ -38,7 +30,13 @@ const subjectSchema = new mongoose.Schema({
     requiredBatchSize: { 
         type: Number, 
         required: true 
+    },
+    admin:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'admin',
+        required:true,
     }
+}, { timestamps: true
 });
 
 const Subject = mongoose.model('Subject', subjectSchema);

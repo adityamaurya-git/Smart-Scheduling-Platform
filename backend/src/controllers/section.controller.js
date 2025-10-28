@@ -16,7 +16,8 @@ async function createSection(req ,res){
         name,
         year,
         department,
-        subjects
+        subjects,
+        admin:req.admin._id
     })
 
     res.status(201).json({
@@ -27,7 +28,7 @@ async function createSection(req ,res){
 
 async function getAllSections(req, res) {
     try {
-        const sections = await sectionModel.find({});
+        const sections = await sectionModel.find({admin:req.admin._id});
         res.status(200).json(sections);
     } catch (error) {
         res.status(500).json({ message: "Error fetching sections." });
@@ -40,7 +41,7 @@ async function updateSection(req, res) {
         const { name, year, department, subjects } = req.body;
 
         if (name) {
-            const exists = await sectionModel.findOne({ name, _id: { $ne: id } });
+            const exists = await sectionModel.findOne({ admin:req.admin._id, name, _id: { $ne: id } });
             if (exists) return res.status(400).json({ message: 'Section name already in use.' });
         }
 
@@ -59,7 +60,7 @@ async function updateSection(req, res) {
 async function deleteSection(req, res) {
     try {
         const { id } = req.params;
-        const deleted = await sectionModel.findByIdAndDelete(id);
+        const deleted = await sectionModel.findByIdAndDelete(id , {admin:req.admin._id});
         if (!deleted) return res.status(404).json({ message: 'Section not found.' });
         res.status(200).json({ message: 'Section deleted successfully' });
     } catch (error) {

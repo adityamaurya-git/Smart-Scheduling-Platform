@@ -17,7 +17,8 @@ async function createSubject(req, res){
         weeklyHours,
         isLab,
         assignedFaculty,
-        requiredBatchSize
+        requiredBatchSize,
+        admin:req.admin._id,
     })
     await subject.save();
     res.status(201).json({
@@ -28,7 +29,7 @@ async function createSubject(req, res){
 
 async function getAllSubjects(req, res) {
     try {
-        const subjects = await subjectModel.find({});
+        const subjects = await subjectModel.find({admin:req.admin._id});
         res.status(200).json(subjects);
     } catch (error) {
         res.status(500).json({ message: "Error fetching subjects." });
@@ -41,7 +42,7 @@ async function updateSubject(req, res) {
         const { subjectName, subjectCode, weeklyHours, isLab, assignedFaculty, requiredBatchSize } = req.body;
 
         if (subjectName) {
-            const exists = await subjectModel.findOne({ subjectName, _id: { $ne: id } });
+            const exists = await subjectModel.findOne({ admin:req.admin._id, subjectName, _id: { $ne: id } });
             if (exists) return res.status(400).json({ message: 'Subject name already in use.' });
         }
 
@@ -60,7 +61,7 @@ async function updateSubject(req, res) {
 async function deleteSubject(req, res) {
     try {
         const { id } = req.params;
-        const deleted = await subjectModel.findByIdAndDelete(id);
+        const deleted = await subjectModel.findByIdAndDelete(id, {admin:req.admin._id});
         if (!deleted) return res.status(404).json({ message: 'Subject not found.' });
         res.status(200).json({ message: 'Subject deleted successfully.' });
     } catch (error) {

@@ -1,10 +1,10 @@
 const departmentModel = require('../models/department.model');
 
 async function createDepartment(req ,res){
-    console.log(req.body)
+
     const {name , code} = req.body;
 
-    const isDepartmentAlreadyExists = await departmentModel.findOne({code});
+    const isDepartmentAlreadyExists = await departmentModel.findOne({admin:req.admin._id , code});
 
     if(isDepartmentAlreadyExists){
         return res.status(400).json({
@@ -15,6 +15,7 @@ async function createDepartment(req ,res){
     const department = await departmentModel.create({
         name,
         code,
+        admin:req.admin._id
     })
 
     res.status(201).json({
@@ -25,7 +26,7 @@ async function createDepartment(req ,res){
 
 async function getAllDepartments(req, res) {
     try {
-        const departments = await departmentModel.find({});
+        const departments = await departmentModel.find({admin:req.admin._id});
         res.status(200).json(departments);
     } catch (error) {
         res.status(500).json({ message: "Error fetching departments." });
@@ -39,7 +40,7 @@ async function updateDepartment(req, res) {
 
         // Check if code is taken by another department
         if (code) {
-            const exists = await departmentModel.findOne({ code, _id: { $ne: id } });
+            const exists = await departmentModel.findOne({ admin:req.admin._id, code, _id: { $ne: id } });
             if (exists) {
                 return res.status(400).json({ message: 'Department code already in use.' });
             }
@@ -62,7 +63,7 @@ async function updateDepartment(req, res) {
 async function deleteDepartment(req, res) {
     try {
         const { id } = req.params;
-        const deleted = await departmentModel.findByIdAndDelete(id);
+        const deleted = await departmentModel.findByIdAndDelete(id , {admin:req.admin._id});
         if (!deleted) return res.status(404).json({ message: 'Department not found.' });
         res.status(200).json({ message: 'Department deleted successfully' });
     } catch (error) {

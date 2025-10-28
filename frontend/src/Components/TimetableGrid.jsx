@@ -36,12 +36,12 @@ function TimetableGrid({ schedule ,id }) {
                                     return (
                                         <td key={slot} className="border p-2 text-center align-top h-28">
                                             {cls ? (
-                                                <div className="bg-blue-100 p-2 rounded-md h-full text-xs flex flex-col justify-center">
+                                                <div className="bg-[#E6F3FF] p-2 rounded-md h-full text-xs flex flex-col justify-center">
                                                     <p className="font-bold text-blue-800">{cls.subject?.subjectName || 'N/A'}</p>
 
-                                                    <p className="italic text-gray-800">{cls.faculty?.facultyName || 'N/A'}</p>
+                                                    <p className="italic text-gray-800">{cls.faculty?.facultyName || cls.faculty?.name || 'N/A'}</p>
 
-                                                    <p className="text-gray-600 mt-1">Room: {cls.room?.roomNumber || 'N/A'}</p>
+                                                    <p className="text-gray-600 mt-1">Room: {cls.room?.roomNumber || cls.room?.name || 'N/A'}</p>
                                                 </div>
                                             ) : null}
                                         </td>

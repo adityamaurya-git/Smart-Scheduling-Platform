@@ -256,12 +256,12 @@ function ManageSectionsPage() {
     };
 
     return (
-        <div className='w-full h-screen flex'>
+        <div className='min-h-screen w-full flex flex-col md:flex-row'>
             <Sidebar />
-            <section className='w-full h-[87%] p-2 pl-1 rounded-lg drop-shadow-xl'>
-                <div className="w-full h-full grid grid-cols-1 gap-8 overflow-auto">
+            <section className='w-full p-2 md:h-[87vh] drop-shadow-xl'>
+                <div className="w-full h-screen grid grid-cols-1 gap-6 overflow-auto rounded-lg md:h-full">
                   
-                        <div className="bg-white p-6 rounded-lg shadow-md">
+                        <div className="bg-white p-6 shadow-md">
 
                             <div className="flex items-center justify-between mb-4">
                                 <h2 className="text-xl font-semibold">Existing Sections</h2>
@@ -277,19 +277,19 @@ function ManageSectionsPage() {
                                 <table className="w-full table-auto text-left">
                                     <thead className="bg-gray-50">
                                         <tr>
-                                            <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase">Section Name</th>
-                                            <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase">Year</th>
-                                            <th className="px-4 py-2 text-xs font-medium text-gray-500 uppercase">Department</th>
-                                            <th className="px-4 text-right py-2 text-xs font-medium text-gray-500 uppercase">Actions</th>
+                                            <th className="px-2 sm:px-4 py-2 text-xs font-medium text-gray-500 uppercase">Section Name</th>
+                                            <th className="px-2 sm:px-4 py-2 text-xs font-medium text-gray-500 uppercase">Year</th>
+                                            <th className="px-2 sm:px-4 py-2 text-xs font-medium text-gray-500 uppercase">Department</th>
+                                            <th className="px-2 sm:px-4 text-right py-2 text-xs font-medium text-gray-500 uppercase">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-gray-200">
                                         {sections.length > 0 ? sections.map(section => (
                                             <tr key={section._id}>
-                                                <td className="px-4 py-2 font-medium">{section.name}</td>
-                                                <td className="px-4 py-2">{section.year}</td>
-                                                <td className="px-4 py-2">{getDepartmentName(section.department)}</td>
-                                                <td className="px-4 py-2">
+                                                <td className="px-2 sm:px-4 py-2 font-medium">{section.name}</td>
+                                                <td className="px-2 sm:px-4 py-2">{section.year}</td>
+                                                <td className="px-2 sm:px-4 py-2">{getDepartmentName(section.department)}</td>
+                                                <td className="px-2 sm:px-4 py-2">
                                                     <div className="flex justify-end gap-2">
                                                         <button className="px-3 py-1 text-sm rounded border font-semibold cursor-pointer" onClick={() => openEdit(section)}>Edit</button>
                                                         <button className="px-3 py-1 text-sm rounded border font-semibold text-red-600 cursor-pointer" onClick={() => handleDelete(section)}>Delete</button>
@@ -312,7 +312,7 @@ function ManageSectionsPage() {
                 {showModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center">
                         <div className="absolute inset-0 rounded-lg bg-black/30 backdrop-blur-sm" onClick={() => setShowModal(false)}></div>
-                        <div className="relative z-10 w-full max-w-lg bg-white p-6 rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
+                        <div className="relative z-10 w-[96vw] sm:w-full max-w-lg bg-white p-4 sm:p-6 rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-semibold">Add New Section</h3>
                                 <button
@@ -348,13 +348,13 @@ function ManageSectionsPage() {
                                 </div>
                                 <div>
                                     <label className="block text-gray-700 mb-2">Subjects</label>
-                                    <div className="flex items-center gap-2 mb-2">
+                                    <div className="flex items-center gap-2 mb-2 flex-wrap">
                                         <input
                                             type="text"
                                             value={subjectSearch}
                                             onChange={(e) => setSubjectSearch(e.target.value)}
                                             placeholder="Search subjects..."
-                                            className="w-3/5 px-3 py-2 border rounded"
+                                            className="flex-1 min-w-[200px] px-3 py-2 border rounded"
                                         />
                                         <button type="button" onClick={selectAllFiltered} className="px-3 py-2.5 text-sm rounded border hover:bg-gray-50">Select All</button>
                                         <button type="button" onClick={clearSelection} className="px-3 py-2.5 text-sm rounded border hover:bg-gray-50">Clear</button>
@@ -399,7 +399,7 @@ function ManageSectionsPage() {
                 {showEditModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center">
                         <div className="absolute inset-0 rounded-lg bg-black/30 backdrop-blur-sm" onClick={() => setShowEditModal(false)}></div>
-                        <div className="relative z-10 w-full max-w-lg bg-white p-6 rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
+                        <div className="relative z-10 w-[96vw] sm:w-full max-w-lg bg-white p-4 sm:p-6 rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-semibold">Edit Section</h3>
                                 <button
@@ -435,13 +435,13 @@ function ManageSectionsPage() {
                                 </div>
                                 <div>
                                     <label className="block text-gray-700 mb-2">Subjects</label>
-                                    <div className="flex items-center gap-2 mb-2">
+                                    <div className="flex items-center gap-2 mb-2 flex-wrap">
                                         <input
                                             type="text"
                                             value={subjectSearch}
                                             onChange={(e) => setSubjectSearch(e.target.value)}
                                             placeholder="Search subjects..."
-                                            className="w-3/5 px-3 py-2 border rounded"
+                                            className="flex-1 min-w-[200px] px-3 py-2 border rounded"
                                         />
                                         <button type="button" onClick={selectAllFiltered} className="px-3 py-2.5 text-sm rounded border hover:bg-gray-50">Select All</button>
                                         <button type="button" onClick={clearSelection} className="px-3 py-2.5 text-sm rounded border hover:bg-gray-50">Clear</button>

@@ -33,7 +33,12 @@ const timetableSchema = new mongoose.Schema({
             type: String 
             
         }
-    }]
+    }],
+    admin:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'admin',
+        required:true,
+    }
 });
 
 module.exports = mongoose.model('Timetable', timetableSchema);

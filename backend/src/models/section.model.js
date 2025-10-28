@@ -20,6 +20,12 @@ const SectionSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'Subject',
     }],
+
+    admin:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'admin',
+        required:true,
+    }
 }, { timestamps: true });
 
 // Ensure a section is unique for a given year and department

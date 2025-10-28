@@ -18,7 +18,8 @@ const createFaculty = async (req , res) =>{
         department,
         teachingLoad,
         specializedSubjects,
-        availability
+        availability,
+        admin:req.admin._id,
     })
 
     res.status(201).json({
@@ -31,6 +32,7 @@ const createFaculty = async (req , res) =>{
 const updateFaculty = async (req, res)=>{
     const update = req.body
     const facultyId = req.params.id;
+    const adminId = req.admin._id;
 
     const updatedFaculty = await facultyModel.findByIdAndUpdate(
         facultyId,
@@ -38,7 +40,8 @@ const updateFaculty = async (req, res)=>{
         {
             new:true,
             runValidators:true,
-        }
+        },
+        adminId,
     )
 
     if(!updatedFaculty){
@@ -56,7 +59,7 @@ const updateFaculty = async (req, res)=>{
 
 async function getAllFaculties(req, res) {
     try {
-        const Faculties = await facultyModel.find({});
+        const Faculties = await facultyModel.find({admin:req.admin._id});
         res.status(200).json(Faculties);
     } catch (error) {
         res.status(500).json({ message: "Error fetching Faculties." });
@@ -66,7 +69,7 @@ async function getAllFaculties(req, res) {
 const deleteFaculty = async (req, res) => {
     try {
         const { id } = req.params;
-        const deleted = await facultyModel.findByIdAndDelete(id);
+        const deleted = await facultyModel.findByIdAndDelete(id , {admin:req.admin._id});
         if (!deleted) return res.status(404).json({ message: 'Faculty Not Found' });
         res.status(200).json({ message: 'Faculty deleted successfully.' });
     } catch (error) {

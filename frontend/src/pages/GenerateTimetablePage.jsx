@@ -25,6 +25,8 @@ function GenerateTimetablePage() {
     const [showSavedModal, setShowSavedModal] = useState(false);
     const [savedDetail, setSavedDetail] = useState(null);
 
+    // console.log('Saved Detail:', savedDetail);
+
     // Helper to generate a safe DOM id for a section option
     const makeOptionId = (sectionName, optionIndex) => {
         const slug = String(sectionName)
@@ -92,13 +94,25 @@ function GenerateTimetablePage() {
         setSaveSuccess('');
         setError('');
         try {
-            const classesToSave = Object.values(timetableData.schedule).flat().map(cls => ({
-                subject: cls.subject._id,
-                faculty: cls.faculty._id,
-                room: cls.room._id,
-                day: cls.day,
-                timeSlot: cls.timeSlot
-            }));
+            // Prefer rawClasses with ObjectIds if provided by backend; fallback to extracting _id from schedule
+            let classesToSave;
+            if (Array.isArray(timetableData.rawClasses)) {
+                classesToSave = timetableData.rawClasses.map(c => ({
+                    subject: c.subject,
+                    faculty: c.faculty,
+                    room: c.room,
+                    day: c.day,
+                    timeSlot: c.timeSlot
+                }));
+            } else {
+                classesToSave = Object.values(timetableData.schedule || {}).flat().map(cls => ({
+                    subject: cls.subject?._id || cls.subject, // must be ObjectId or stringified id
+                    faculty: cls.faculty?._id || cls.faculty,
+                    room: cls.room?._id || cls.room,
+                    day: cls.day,
+                    timeSlot: cls.timeSlot
+                }));
+            }
 
             const payload = {
                 name: `Timetable for ${sectionName} - ${new Date().toLocaleDateString()}`,
@@ -173,13 +187,13 @@ function GenerateTimetablePage() {
 
     return (<>
 
-        <div className='w-full h-screen flex '>
+        <div className='min-h-screen w-full flex flex-col md:flex-row'>
             <Sidebar />
-            <section className='w-full h-[87%] p-2 pl-1 rounded-lg drop-shadow-xl'>
-                <div className="w-full h-full rounded-lg p-2 bg-zinc-100 overflow-auto">
-                    <div className="bg-white p-6 rounded-lg shadow-md">
+            <section className='w-full p-2 md:h-[87vh]  drop-shadow-xl'>
+                <div className=" w-full h-screen rounded-lg p-3 sm:p-4 bg-zinc-100 overflow-auto md:h-full">
+                    <div className="bg-white p-6  shadow-md">
                         <div className="flex items-center justify-between">
-                            <h2 className="text-xl font-semibold">Generate Timetable</h2>
+                            <h2 className="text-lg sm:text-xl font-semibold">Generate Timetable</h2>
                             <button
                                 onClick={() => { setError(''); setSaveSuccess(''); setShowModal(true); }}
                                 className="bg-[#89B0FF] text-black font-semibold px-4 py-2 rounded cursor-pointer"
@@ -191,9 +205,9 @@ function GenerateTimetablePage() {
                         {saveSuccess && <p className="text-green-600 mt-3 text-sm">{saveSuccess}</p>}
                     </div>
 
-                    <div className="bg-white p-6 rounded-lg shadow-md mt-6">
+                    <div className=" bg-white p-4 sm:p-6 rounded-lg shadow-md mt-6">
                         <div className="flex items-center justify-between mb-4">
-                            <h2 className="text-xl font-semibold">Saved Timetables</h2>
+                            <h2 className="text-lg sm:text-xl font-semibold">Saved Timetables</h2>
                             <button
                                 onClick={fetchSavedTimetables}
                                 className="px-3 py-2 text-sm rounded border font-semibold cursor-pointer"
@@ -206,10 +220,10 @@ function GenerateTimetablePage() {
                             <table className="w-full table-auto text-left">
                                 <thead className="bg-gray-50">
                                     <tr>
-                                        <th className="px-4 py-2">Name</th>
-                                        <th className="px-4 py-2">Score</th>
-                                        <th className="px-4 py-2">Classes</th>
-                                        <th className="px-4 py-2">Actions</th>
+                                        <th className="px-2 sm:px-4 py-2">Name</th>
+                                        <th className="px-2 sm:px-4 py-2">Score</th>
+                                        <th className="px-2 sm:px-4 py-2">Classes</th>
+                                        <th className="px-2 sm:px-4 py-2">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200">
@@ -220,10 +234,10 @@ function GenerateTimetablePage() {
                                     ) : (
                                         savedTimetables.map(tt => (
                                             <tr key={tt._id}>
-                                                <td className="px-4 py-2 font-medium">{tt.name || 'Untitled'}</td>
-                                                <td className="px-4 py-2">{typeof tt.score === 'number' ? tt.score.toFixed(2) : (tt.score ?? '-')}</td>
-                                                <td className="px-4 py-2">{Array.isArray(tt.classes) ? tt.classes.length : (tt.classesCount ?? '-')}</td>
-                                                <td className="px-4 py-2">
+                                                <td className="px-2 sm:px-4 py-2 font-medium">{tt.name || 'Untitled'}</td>
+                                                <td className="px-2 sm:px-4 py-2">{typeof tt.score === 'number' ? tt.score.toFixed(2) : (tt.score ?? '-')}</td>
+                                                <td className="px-2 sm:px-4 py-2">{Array.isArray(tt.classes) ? tt.classes.length : (tt.classesCount ?? '-')}</td>
+                                                <td className="px-2 sm:px-4 py-2">
                                                     <button
                                                         onClick={async () => {
                                                             try {
@@ -234,7 +248,7 @@ function GenerateTimetablePage() {
                                                                 setSavedError(e.response?.data?.message || 'Failed to load timetable details.');
                                                             }
                                                         }}
-                                                        className="px-3 py-1 text-sm rounded bg-[#89B0FF] text-black font-semibold cursor-pointer"
+                                                        className="px-2 sm:px-3 py-1 text-sm rounded bg-[#89B0FF] text-black font-semibold cursor-pointer"
                                                     >
                                                         View
                                                     </button>
@@ -287,7 +301,7 @@ function GenerateTimetablePage() {
                 {showModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center">
                         <div className="absolute inset-0 rounded-lg bg-black/30 backdrop-blur-sm" onClick={() => setShowModal(false)}></div>
-                        <div className="relative z-10 w-full max-w-lg bg-white p-6 rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
+                        <div className="relative z-10 w-[92vw] sm:w-full max-w-lg bg-white p-4 sm:p-6 rounded-lg shadow-lg max-h-[90vh] overflow-y-auto">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-semibold">Generate Timetable</h3>
                                 <button className="h-7 w-7 flex justify-center items-center font-semibold cursor-pointer rounded-lg bg-red-400" onClick={() => setShowModal(false)} aria-label="Close">✕</button>
@@ -333,8 +347,8 @@ function GenerateTimetablePage() {
 
                 {showSavedModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center">
-                        <div className="absolute inset-0 rounded-lg bg-black/30 backdrop-blur-sm" onClick={() => setShowSavedModal(false)}></div>
-                        <div className="relative z-10 w-full max-w-3xl bg-white p-6 rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
+                        <div className="absolute inset-0 rounded-lg bg-black/30 backdrop-blur-sm " onClick={() => setShowSavedModal(false)}></div>
+                        <div className="relative z-10 w-[92vw] sm:w-full max-w-4xl bg-white p-3 sm:p-6 rounded-lg shadow-lg max-h-[85vh] overflow-y-auto">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-semibold">Saved Timetable Details</h3>
                                 <button className="h-7 w-7 flex justify-center items-center font-semibold cursor-pointer rounded-lg bg-red-400" onClick={() => setShowSavedModal(false)} aria-label="Close">✕</button>
@@ -349,34 +363,14 @@ function GenerateTimetablePage() {
                                             <p className="text-sm text-gray-600">Score: {typeof savedDetail.score === 'number' ? savedDetail.score.toFixed(2) : savedDetail.score}</p>
                                         )}
                                     </div>
-                                    <div className="overflow-x-auto">
-                                        <table className="w-full table-auto text-left">
-                                            <thead className="bg-gray-50">
-                                                <tr>
-                                                    <th className="px-4 py-2">Day</th>
-                                                    <th className="px-4 py-2">Time Slot</th>
-                                                    <th className="px-4 py-2">Subject</th>
-                                                    <th className="px-4 py-2">Faculty</th>
-                                                    <th className="px-4 py-2">Room</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody className="divide-y divide-gray-200">
-                                                {(savedDetail.classes || []).map((cls, idx) => {
-                                                    const disp = (x) => x?.name || x?.subjectName || x?.code || x?._id || x;
-                                                    
-                                                    return (
-                                                        <tr key={idx}>
-                                                            <td className="px-4 py-2">{cls.day}</td>
-                                                            <td className="px-4 py-2">{cls.timeSlot}</td>
-                                                            <td className="px-4 py-2">{disp(cls.subject)}</td>
-                                                            <td className="px-4 py-2">{disp(cls.faculty)}</td>
-                                                            <td className="px-4 py-2">{disp(cls.room)}</td>
-                                                        </tr>
-                                                    );
-                                                })}
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    {/* Grid view only */}
+                                    {savedDetail.schedule ? (
+                                        <div className="mb-2 overflow-x-auto">
+                                            <TimetableGrid schedule={savedDetail.schedule} id="saved-timetable-preview" />
+                                        </div>
+                                    ) : (
+                                        <p className="text-sm text-gray-500">No schedule available for this timetable.</p>
+                                    )}
                                 </>
                             )}
                         </div>

@@ -16,7 +16,8 @@ async function createRoom(req,res){
         roomNumber,
         capacity,
         roomType,
-        unavailability
+        unavailability,
+        admin:req.admin._id,
     })
 
     res.status(201).json({
@@ -27,7 +28,7 @@ async function createRoom(req,res){
 
 async function getAllRooms(req, res) {
     try {
-        const rooms = await roomModel.find({});
+        const rooms = await roomModel.find({admin:req.admin._id});
         res.status(200).json(rooms);
     } catch (error) {
         res.status(500).json({ message: "Error fetching rooms." });
@@ -40,7 +41,7 @@ async function updateRoom(req, res) {
         const { roomNumber, capacity, roomType, unavailability } = req.body;
 
         if (roomNumber) {
-            const exists = await roomModel.findOne({ roomNumber, _id: { $ne: id } });
+            const exists = await roomModel.findOne({ admin:req.admin._id, roomNumber, _id: { $ne: id } });
             if (exists) return res.status(400).json({ message: 'Room number already in use.' });
         }
 
@@ -59,7 +60,7 @@ async function updateRoom(req, res) {
 async function deleteRoom(req, res) {
     try {
         const { id } = req.params;
-        const deleted = await roomModel.findByIdAndDelete(id);
+        const deleted = await roomModel.findByIdAndDelete(id , {admin:req.admin._id});
         if (!deleted) return res.status(404).json({ message: 'Room not found.' });
         res.status(200).json({ message: 'Room deleted successfully' });
     } catch (error) {

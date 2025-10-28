@@ -78,13 +78,13 @@ function ManageDepartmentsPage() {
     };
 
     return (<>
-        <div className='w-full h-screen flex'>
+        <div className='min-h-screen w-full flex flex-col md:flex-row'>
             <Sidebar />
-            <section className='w-full h-[87%] p-2 rounded-lg drop-shadow-xl'>
-                <div className="w-full h-full grid grid-cols-1 gap-8 overflow-auto">
+            <section className='w-full p-2 md:h-[87vh]  drop-shadow-xl'>
+                <div className="w-full h-screen grid grid-cols-1 gap-6 overflow-auto rounded-lg md:h-full">
 
                   
-                        <div className="bg-white p-6 rounded-lg shadow-md">
+                        <div className=" bg-white p-6 rounded-lg shadow-md">
                             <div className="flex items-center justify-between mb-4">
                                 <h2 className="text-xl font-semibold">Existing Departments</h2>
                                 <button
@@ -94,39 +94,41 @@ function ManageDepartmentsPage() {
                                 </button>
                             </div>
 
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
-                                    <tr>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Code</th>
-                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {departments.map((dept) => (
-                                        <tr key={dept._id}>
-                                            <td className="px-6 py-4">{dept.name}</td>
-                                            <td className="px-6 py-4">{dept.code}</td>
-                                            <td className="px-6 py-4">
-                                                <div className="flex justify-end gap-2">
-                                                    <button
-                                                        onClick={() => openEdit(dept)}
-                                                        className="px-3 py-1 text-sm rounded border text-black font-semibold cursor-pointer"
-                                                    >
-                                                        Edit
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleDelete(dept._id)}
-                                                        className="px-3 py-1 text-sm rounded border border-red-600 text-red-600 font-semibold hover:bg-red-600 cursor-pointer"
-                                                    >
-                                                        Delete
-                                                    </button>
-                                                </div>
-                                            </td>
+                            <div className="overflow-x-auto">
+                                <table className="min-w-full divide-y divide-gray-200">
+                                    <thead className="bg-gray-50">
+                                        <tr>
+                                            <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                            <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Code</th>
+                                            <th className="px-2 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody className="bg-white divide-y divide-gray-200">
+                                        {departments.map((dept) => (
+                                            <tr key={dept._id}>
+                                                <td className="px-2 sm:px-6 py-3">{dept.name}</td>
+                                                <td className="px-2 sm:px-6 py-3">{dept.code}</td>
+                                                <td className="px-2 sm:px-6 py-3">
+                                                    <div className="flex justify-end gap-2">
+                                                        <button
+                                                            onClick={() => openEdit(dept)}
+                                                            className="px-3 py-1 text-sm rounded border text-black font-semibold cursor-pointer"
+                                                        >
+                                                            Edit
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleDelete(dept._id)}
+                                                            className="px-3 py-1 text-sm rounded border border-red-600 text-red-600 font-semibold cursor-pointer"
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     
 
@@ -134,7 +136,7 @@ function ManageDepartmentsPage() {
                 {showModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center">
                         <div className="absolute inset-0 bg-black/30 backdrop-blur-sm rounded-lg" onClick={() => setShowModal(false)}></div>
-                        <div className="relative z-10 w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+                        <div className="relative z-10 w-[92vw] sm:w-full max-w-md bg-white p-4 sm:p-6 rounded-lg shadow-lg">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-semibold">Add New Department</h3>
                                 <button
@@ -190,7 +192,7 @@ function ManageDepartmentsPage() {
                 {showEditModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center">
                         <div className="absolute inset-0 bg-black/30 backdrop-blur-sm rounded-lg" onClick={() => setShowEditModal(false)}></div>
-                        <div className="relative z-10 w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+                        <div className="relative z-10 w-[92vw] sm:w-full max-w-md bg-white p-4 sm:p-6 rounded-lg shadow-lg">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-semibold">Edit Department</h3>
                                 <button

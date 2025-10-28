@@ -35,7 +35,6 @@ function DashboardPage() {
         const fetchTimetable = async () => {
             try {
                 const response = await getAllTimetables();
-                console.log(response);
                 setTimetable(response.data);
             } catch (err) {
                 console.log(err);
@@ -46,18 +45,20 @@ function DashboardPage() {
     }, []);
 
     return (
-        <div className='w-full h-screen flex'>
+        <div className='min-h-screen w-full flex flex-col md:flex-row'>
             <Sidebar />
 
-            <section className=' w-full h-[87%] p-2 pl-1 rounded-lg drop-shadow-xl'>
-                <div className=' w-full h-full rounded-lg p-2 bg-zinc-100'>
-                    <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+            <section className='w-full p-2 md:h-[87vh] drop-shadow-xl'>
+                <div className='w-full h-screen p-3 sm:p-4 bg-zinc-100 rounded-lg md:h-full'>
+                    <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Dashboard</h1>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         <StatCard title="Total Departments" value={stats?.departments} isLoading={isLoading} />
                         <StatCard title="Total Subjects" value={stats?.subjects} isLoading={isLoading} />
                         <StatCard title="Total Faculties" value={stats?.faculties} isLoading={isLoading} />
                         <StatCard title="Total Rooms" value={stats?.rooms} isLoading={isLoading} />
+                        <StatCard title="Total Sections" value={stats?.sections} isLoading={isLoading} />
+                        <StatCard title="Total Timetables" value={stats?.timetables} isLoading={isLoading} />
                     </div>
 
                 </div>

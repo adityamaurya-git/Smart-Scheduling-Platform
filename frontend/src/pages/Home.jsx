@@ -1,8 +1,9 @@
-export const Home = () =>{
+import { Sidebar } from "../Components/Sidebar";
 
-    
+export const Home = () =>{
     return(<>
-        <div className="w-full h-screen">
+        <Sidebar showDesktop={false} />
+        <div className="w-full min-h-screen">
            
         </div>
     </>)

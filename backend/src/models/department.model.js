@@ -13,6 +13,11 @@ const DepartmentSchema = new mongoose.Schema({
         unique: true,
         trim: true,
     },
+    admin:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'admin',
+        required:true,
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Department', DepartmentSchema);

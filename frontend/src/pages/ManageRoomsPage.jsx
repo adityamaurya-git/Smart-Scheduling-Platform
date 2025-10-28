@@ -86,12 +86,12 @@ function ManageRoomsPage() {
     };
 
     return (
-        <div className='w-full h-screen flex'>
+        <div className='min-h-screen w-full flex flex-col md:flex-row'>
             <Sidebar />
-            <section className='w-full h-[87%] p-2 pl-1 rounded-lg drop-shadow-xl'>
-                <div className="w-full h-full grid grid-cols-1 gap-8 overflow-auto">
+            <section className='w-full p-2 md:h-[87vh]  drop-shadow-xl'>
+                <div className="w-full h-screen grid grid-cols-1 gap-6 overflow-auto rounded-lg md:h-full">
                    
-                        <div className="bg-white p-6 rounded-lg shadow-md">
+                        <div className="bg-white p-6  shadow-md">
                             <div className="flex items-center justify-between mb-4">
                                 <h2 className="text-xl font-semibold">Existing Rooms</h2>
                                 <button
@@ -102,24 +102,25 @@ function ManageRoomsPage() {
                                 </button>
                             </div>
 
+                            <div className="overflow-x-auto">
                             <table className="min-w-full divide-y divide-gray-200">
                                 {/* Table Head */}
                                 <thead className="bg-gray-50">
                                     <tr>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Number</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Capacity</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
-                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
+                                        <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Number</th>
+                                        <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Capacity</th>
+                                        <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
+                                        <th className="px-2 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
                                     </tr>
                                 </thead>
                                 {/* Table Body */}
                                 <tbody className="bg-white divide-y divide-gray-200">
                                     {rooms.map((room) => (
                                         <tr key={room._id}>
-                                            <td className="px-6 py-4">{room.roomNumber}</td>
-                                            <td className="px-6 py-4">{room.capacity}</td>
-                                            <td className="px-6 py-4">{room.roomType}</td>
-                                            <td className="px-6 py-4">
+                                            <td className="px-2 sm:px-6 py-3">{room.roomNumber}</td>
+                                            <td className="px-2 sm:px-6 py-3">{room.capacity}</td>
+                                            <td className="px-2 sm:px-6 py-3">{room.roomType}</td>
+                                            <td className="px-2 sm:px-6 py-3">
                                                 <div className="flex justify-end gap-2">
                                                     <button
                                                         className="px-3 py-1 text-sm rounded  font-semibold border cursor-pointer"
@@ -139,6 +140,7 @@ function ManageRoomsPage() {
                                     ))}
                                 </tbody>
                             </table>
+                            </div>
 
                         </div>
                     
@@ -147,7 +149,7 @@ function ManageRoomsPage() {
                 {showModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center">
                         <div className="absolute inset-0 rounded-lg bg-black/30 backdrop-blur-sm" onClick={() => setShowModal(false)}></div>
-                        <div className="relative z-10 w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+                        <div className="relative z-10 w-[92vw] sm:w-full max-w-md bg-white p-4 sm:p-6 rounded-lg shadow-lg">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-semibold">Add New Room</h3>
                                 <button
@@ -161,17 +163,19 @@ function ManageRoomsPage() {
                             <form onSubmit={handleSubmit}>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 mb-1">Room Number</label>
-                                    <input type="text" value={roomNumber} onChange={(e) => setRoomNumber(e.target.value)} className="w-full px-3 py-2 border rounded" required autoFocus />
+                                    <input type="text" value={roomNumber} onChange={(e) => setRoomNumber(e.target.value.toUpperCase())} className="w-full px-3 py-2 border rounded" required autoFocus placeholder="e.g., R101, L205" />
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 mb-1">Capacity</label>
-                                    <input type="number" value={capacity} onChange={(e) => setCapacity(e.target.value)} className="w-full px-3 py-2 border rounded" required />
+                                    <input type="number" min={1} value={capacity} onChange={(e) => setCapacity(e.target.value)} className="w-full px-3 py-2 border rounded" required />
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 mb-1">Room Type</label>
                                     <select value={roomType} onChange={(e) => setRoomType(e.target.value)} className="w-full px-3 py-2 border rounded">
                                         <option value="General Classroom">General Classroom</option>
                                         <option value="Lab">Lab</option>
+                                        <option value="Library">Library</option>
+                                        <option value="Seminar Hall">Seminar Hall</option>
                                     </select>
                                 </div>
                                 {error && <p className="text-red-500 mb-3">{error}</p>}
@@ -187,7 +191,7 @@ function ManageRoomsPage() {
                 {showEditModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center">
                         <div className="absolute inset-0 rounded-lg bg-black/30 backdrop-blur-sm" onClick={() => setShowEditModal(false)}></div>
-                        <div className="relative z-10 w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+                        <div className="relative z-10 w-[92vw] sm:w-full max-w-md bg-white p-4 sm:p-6 rounded-lg shadow-lg">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-semibold">Edit Room</h3>
                                 <button
@@ -201,17 +205,19 @@ function ManageRoomsPage() {
                             <form onSubmit={handleUpdate}>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 mb-1">Room Number</label>
-                                    <input type="text" value={editRoomNumber} onChange={(e) => setEditRoomNumber(e.target.value)} className="w-full px-3 py-2 border rounded" required autoFocus />
+                                    <input type="text" value={editRoomNumber} onChange={(e) => setEditRoomNumber(e.target.value.toUpperCase())} className="w-full px-3 py-2 border rounded" required autoFocus />
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 mb-1">Capacity</label>
-                                    <input type="number" value={editCapacity} onChange={(e) => setEditCapacity(e.target.value)} className="w-full px-3 py-2 border rounded" required />
+                                    <input type="number" min={1} value={editCapacity} onChange={(e) => setEditCapacity(e.target.value)} className="w-full px-3 py-2 border rounded" required />
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 mb-1">Room Type</label>
                                     <select value={editRoomType} onChange={(e) => setEditRoomType(e.target.value)} className="w-full px-3 py-2 border rounded">
                                         <option value="General Classroom">General Classroom</option>
                                         <option value="Lab">Lab</option>
+                                        <option value="Library">Library</option>
+                                        <option value="Seminar Hall">Seminar Hall</option>
                                     </select>
                                 </div>
                                 {error && <p className="text-red-500 mb-3">{error}</p>}

@@ -94,12 +94,12 @@ function ManageSubjectsPage() {
     };
 
     return (
-        <div className='w-full h-screen flex'>
+        <div className='min-h-screen w-full flex flex-col md:flex-row'>
             <Sidebar />
-            <section className='w-full h-[87%] p-2 pl-1 rounded-lg drop-shadow-xl'>
-                <div className="w-full h-full grid grid-cols-1 gap-8 overflow-auto">
+            <section className='w-full  p-2 md:h-[87vh] rounded-lg drop-shadow-xl '>
+                <div className="w-full h-screen grid grid-cols-1 gap-6 overflow-auto rounded-lg md:h-full">
                     
-                        <div className="bg-white p-6 rounded-lg shadow-md">
+                        <div className="bg-white p-6 shadow-md">
                             <div className="flex items-center justify-between mb-4 ">
                                 <h2 className="text-xl font-semibold">Existing Subjects</h2>
                                 <button
@@ -110,31 +110,33 @@ function ManageSubjectsPage() {
                                 </button>
                             </div>
 
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
-                                    <tr>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Code</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Hours</th>
-                                        <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {subjects.map((sub) => (
-                                        <tr key={sub._id}>
-                                            <td className="px-6 py-4">{sub.subjectName}</td>
-                                            <td className="px-6 py-4">{sub.subjectCode}</td>
-                                            <td className="px-6 py-4">{sub.weeklyHours}</td>
-                                            <td className="px-6 py-4">
-                                                <div className="flex justify-end gap-2">
-                                                    <button onClick={() => openEdit(sub)} className="px-3 py-1 text-sm rounded border text-black font-semibold cursor-pointer">Edit</button>
-                                                    <button onClick={() => handleDelete(sub._id)} className="px-3 py-1 text-sm rounded border border-red-600 text-red-600 font-semibold cursor-pointer">Delete</button>
-                                                </div>
-                                            </td>
+                            <div className="overflow-x-auto">
+                                <table className="min-w-full divide-y divide-gray-200">
+                                    <thead className="bg-gray-50">
+                                        <tr>
+                                            <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                            <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Code</th>
+                                            <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Hours</th>
+                                            <th className="px-2 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody className="bg-white divide-y divide-gray-200">
+                                        {subjects.map((sub) => (
+                                            <tr key={sub._id}>
+                                                <td className="px-2 sm:px-6 py-3">{sub.subjectName}</td>
+                                                <td className="px-2 sm:px-6 py-3">{sub.subjectCode}</td>
+                                                <td className="px-2 sm:px-6 py-3">{sub.weeklyHours}</td>
+                                                <td className="px-2 sm:px-6 py-3">
+                                                    <div className="flex justify-end gap-2">
+                                                        <button onClick={() => openEdit(sub)} className="px-3 py-1 text-sm rounded border text-black font-semibold cursor-pointer">Edit</button>
+                                                        <button onClick={() => handleDelete(sub._id)} className="px-3 py-1 text-sm rounded border border-red-600 text-red-600 font-semibold cursor-pointer">Delete</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
 
                         
 
@@ -144,7 +146,7 @@ function ManageSubjectsPage() {
                 {showModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center">
                         <div className="absolute inset-0 rounded-lg bg-black/30 backdrop-blur-sm" onClick={() => setShowModal(false)}></div>
-                        <div className="relative z-10 w-full max-w-lg bg-white p-6 rounded-lg shadow-lg">
+                        <div className="relative z-10 w-[92vw] sm:w-full max-w-lg bg-white p-4 sm:p-6 rounded-lg shadow-lg">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-semibold">Add New Subject</h3>
                                 <button
@@ -190,7 +192,7 @@ function ManageSubjectsPage() {
                 {showEditModal && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center">
                         <div className="absolute inset-0 rounded-lg bg-black/30 backdrop-blur-sm" onClick={() => setShowEditModal(false)}></div>
-                        <div className="relative z-10 w-full max-w-lg bg-white p-6 rounded-lg shadow-lg">
+                        <div className="relative z-10 w-[92vw] sm:w-full max-w-lg bg-white p-4 sm:p-6 rounded-lg shadow-lg">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-lg font-semibold">Edit Subject</h3>
                                 <button className="w-7 h-7 rounded-lg flex justify-center items-center font-semibold cursor-pointer bg-red-400" onClick={() => setShowEditModal(false)} aria-label="Close">✕</button>

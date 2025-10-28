@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = axios.create({
+export const api = axios.create({
     baseURL: 'http://localhost:3000/api',
     withCredentials: true,
 });
@@ -8,6 +8,7 @@ const api = axios.create({
 // --- Admin Auth ---
 export const loginAdmin = (credentials) => api.post('/auth/admin/login', credentials);
 export const logoutAdmin = () => api.post('/auth/admin/logout');
+export const registerAdmin = (data) => api.post('/auth/admin/register', data);
 
 // --- Dashboard ---
 export const getDashboardStats = () => api.get('/dashboard/stats');
