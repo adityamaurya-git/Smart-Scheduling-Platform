@@ -16,7 +16,7 @@ export const Footer = () => {
     ];
 
     return (
-        <footer className="w-full border-t bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <footer className="w-full bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
             {/* Accent line */}
             <div className="h-[2px] w-full bg-gradient-to-r from-[#89B0FF] via-[#a6c2ff] to-[#89B0FF]" />
 
@@ -33,13 +33,13 @@ export const Footer = () => {
                     </div>
 
                     {/* Navigation */}
-                    <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-600">
+                    {/* <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-600">
                         {navLinks.map((l) => (
                             <Link key={l.to} to={l.to} className="hover:text-gray-900 transition-colors">
                                 {l.label}
                             </Link>
                         ))}
-                    </nav>
+                    </nav> */}
 
                     {/* Socials */}
                     <div className="flex items-center gap-3">

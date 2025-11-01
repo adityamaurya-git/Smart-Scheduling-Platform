@@ -34,10 +34,8 @@ export const Register = () =>{
 
     return(<>
         <Sidebar showDesktop={false} />
-        <div className="relative min-h-screen flex items-center justify-center px-4 py-8">
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-50 via-blue-50 to-transparent" />
-
-            <div className="relative w-full max-w-md">
+        <div className="relative min-h-screen flex items-center justify-center px-4  ">
+            <div className="relative w-full max-w-md p-4">
                 <div className="mb-6 text-center">
                     <div className="mx-auto h-12 w-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow">
                         <span className="font-bold">STM</span>

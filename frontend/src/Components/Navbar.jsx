@@ -17,9 +17,9 @@ export const Navbar = () => {
     const linkClass = (e) => `px-2 py-1 rounded-lg ${e.isActive ? "bg-zinc-200 text-black font-semibold" : "text-zinc-200"}`
 
     return (
-        <nav className="w-full sticky top-0 z-50 border border-transparent text-white">
+        <nav className="relative w-full z-50 text-white">
             {/* Top bar */}
-            <div className="mx-auto w-[92vw] max-w-7xl h-16 md:h-18 mt-2 flex items-center justify-between rounded-2xl font-mono bg-[#1D1D1D] px-3 sm:px-4">
+            <div className=" mx-auto w-[92vw] max-w-7xl h-16 md:h-18 mt-2 flex items-center justify-between rounded-2xl font-mono bg-[#1D1D1D] px-3 sm:px-4">
                 {/* Left: Logo */}
                 <div className="flex items-center">
                     <Link to="/" className="flex items-center gap-2">
@@ -50,7 +50,7 @@ export const Navbar = () => {
                         aria-label="Toggle menu"
                         aria-expanded={false}
                         onClick={() => setSidebarOpen(true)}
-                        className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-white/50"
+                        className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-white/50 cursor-pointer"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />

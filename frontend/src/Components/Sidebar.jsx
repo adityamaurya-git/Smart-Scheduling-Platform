@@ -45,7 +45,7 @@ export const Sidebar = ({ showDesktop = true }) => {
 
             {/* Desktop sidebar */}
             {showDesktop && (
-                <aside className="hidden md:block md:w-1/4 h-[87vh] md:p-2">
+                <aside className="hidden md:block md:w-1/4 h-[87vh] z-10 md:p-2">
                     <div className="w-full h-full rounded-lg p-1 bg-[#89B0FF]">
                         <NavItems onNavigate={undefined} includeTopLinks={false} />
                     </div>

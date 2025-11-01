@@ -33,11 +33,8 @@ function LoginPage() {
     return (
         <>
             <Sidebar showDesktop={false} />
-            <div className="relative min-h-screen flex items-center justify-center px-4 py-8">
-                {/* Background accent */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-transparent" />
-
-                <div className="relative w-full max-w-md">
+            <div className="relative min-h-screen items-center flex justify-center md:pt-14 md:items-start">
+                <div className="relative w-full max-w-md ">
                     <div className="mb-6 text-center">
                         <div className="mx-auto h-12 w-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center shadow">
                             <span className="font-bold">STM</span>
