@@ -2,7 +2,7 @@ const adminModel = require('../models/admin.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-async function registerAdmin(req, res){
+ async function registerAdmin(req, res){
     const {fullName , email , phone , password} = req.body;
 
     let isAdminAlreadyExists = await adminModel.findOne({email});
@@ -44,7 +44,7 @@ async function registerAdmin(req, res){
     })
 }
 
-async function loginAdmin(req, res){
+ async function loginAdmin(req, res){
     const {email , password} = req.body;
 
     const admin = await adminModel.findOne({email});
@@ -83,14 +83,14 @@ async function loginAdmin(req, res){
     })
 }
 
-async function logoutAdmin(req , res){
+ async function logoutAdmin(req , res){
     res.clearCookie("token");
     res.status(200).json({
         message:"User Logged out successfully"
     })
 }
 
-async function getAdminDetails(req , res){
+ async function getAdminDetails(req , res){
     const token = req.cookies.token;
     if(!token){
         return res.status(401).json({
