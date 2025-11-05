@@ -431,35 +431,7 @@ async function generateTimetableFor(req, res) {
         // Build all section timetables slot-by-slot across the week with unique faculty/rooms per slot
         const results = await buildTimetablesBySlots({ sections, allFaculties, allRooms, timeSlots, days });
 
-        // const formattedResults = {};
-        // for (const sectionName in results) {
-
-        //     formattedResults[sectionName] = await Promise.all(results[sectionName].map(async (timetable) => {
-        //         await Timetable.populate(timetable, [
-        //             { path: 'classes.subject', select: 'subjectName' },
-        //             { path: 'classes.faculty', select: 'facultyName' },
-        //             { path: 'classes.room', select: 'roomNumber' }
-        //         ]);
-
-        //         const scheduleByDay = { Monday: [], Tuesday: [], Wednesday: [], Thursday: [], Friday: [], Saturday: [] };
-        //         timetable.classes.forEach(cls => {
-        //             if (scheduleByDay[cls.day]) {
-        //                 scheduleByDay[cls.day].push(cls);
-        //             }
-        //         });
-
-        //         for (const day in scheduleByDay) {
-        //             scheduleByDay[day].sort((a, b) => a.timeSlot.localeCompare(b.timeSlot));
-        //         }
-
-        //         return {
-        //             fitness: timetable.fitness,
-        //             schedule: scheduleByDay
-        //         };
-        //     }));
-        // }
-
-        // --- Replace the 'formattedResults' block with this ---
+       
 
 const formattedResults = {};
 for (const sectionName in results) {
