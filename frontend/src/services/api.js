@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-    baseURL: 'https://smart-scheduling-platform.vercel.app//api',
+    baseURL: 'https://smart-scheduling-platform.onrender.com/api',
     withCredentials: true,
 });
 
