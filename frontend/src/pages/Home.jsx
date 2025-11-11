@@ -53,7 +53,7 @@ export const Home = () => {
                 <div className="cardContainer w-full h-full flex flex-col gap-5 p-2">
 
                     <div className="card w-full h-auto md:h-60 flex flex-col md:flex-row gap-5 rounded-lg">
-                        <div className="w-full md:w-1/2 h-42 md:h-full rounded-lg p-1">
+                        <div className="border w-full md:w-1/2 md:h-42  rounded-lg p-1">
                             <img className="w-full h-full object-cover rounded-lg" src="/images/add_dept_img.png" alt="" />
                         </div>
                         <div className="w-full md:w-1/2 h-auto md:h-full flex flex-col gap-3 p-2 md:pl-5">
@@ -66,7 +66,7 @@ export const Home = () => {
                         </div>
                     </div>
                     <div className="card w-full h-auto md:h-60 flex flex-col md:flex-row gap-5 rounded-lg">
-                        <div className="w-full md:w-1/2 h-42 md:h-full rounded-lg p-1">
+                        <div className="w-full md:w-1/2 md:h-42 rounded-lg p-1">
                             <img className="w-full h-full object-cover rounded-lg" src="/images/add_sub_img.png" alt="" />
                         </div>
                         <div className="w-full md:w-1/2 h-auto md:h-full flex flex-col gap-3 p-2 md:pl-5">
@@ -79,7 +79,7 @@ export const Home = () => {
                         </div>
                     </div>
                     <div className="card w-full h-auto md:h-60 flex flex-col md:flex-row gap-5 rounded-lg">
-                        <div className="w-full md:w-1/2 h-42 md:h-full rounded-lg p-1">
+                        <div className="w-full md:w-1/2  md:h-42 rounded-lg p-1">
                             <img className="w-full h-full object-cover rounded-lg" src="/images/add_room_img.png" alt="" />
                         </div>
                         <div className="w-full md:w-1/2 h-auto md:h-full flex flex-col gap-3 p-2 md:pl-5">
@@ -93,7 +93,7 @@ export const Home = () => {
                         </div>
                     </div>
                     <div className="card w-full h-auto md:h-60 flex flex-col md:flex-row gap-5 rounded-lg">
-                        <div className="w-full md:w-1/2 h-42 md:h-full rounded-lg p-1">
+                        <div className="w-full md:w-1/2 md:h-42 rounded-lg p-1">
                             <img className="w-full h-full object-cover rounded-lg" src="/images/add_faculty_img.png" alt="" />
                         </div>
                         <div className="w-full md:w-1/2 h-auto md:h-full flex flex-col gap-3 p-2 md:pl-5">
@@ -107,7 +107,7 @@ export const Home = () => {
                         </div>
                     </div>
                     <div className="card w-full h-auto md:h-60 flex flex-col md:flex-row gap-5 rounded-lg">
-                        <div className="w-full md:w-1/2 h-42 md:h-full rounded-lg p-1">
+                        <div className="w-full md:w-1/2 md:h-42 rounded-lg p-1">
                             <img className="w-full h-full object-cover rounded-lg" src="/images/add_section_img.png" alt="" />
                         </div>
                         <div className="w-full md:w-1/2 h-auto md:h-full flex flex-col gap-3 p-2 md:pl-5">
@@ -121,7 +121,7 @@ export const Home = () => {
                         </div>
                     </div>
                     <div className="card w-full h-auto md:h-60 flex flex-col md:flex-row gap-5 rounded-lg">
-                        <div className="w-full md:w-1/2 h-42 md:h-full rounded-lg p-1">
+                        <div className="w-full md:w-1/2 md:h-42 rounded-lg p-1">
                             <img className="w-full h-full object-cover rounded-lg" src="/images/add_timetable_img.png" alt="" />
                         </div>
                         <div className="w-full md:w-1/2 h-auto md:h-full flex flex-col gap-3 p-2 md:pl-5">
