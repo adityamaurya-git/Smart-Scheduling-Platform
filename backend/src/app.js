@@ -15,10 +15,31 @@ const dashboardRoutes = require('./routes/dashboard.routes')
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
+
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://smart-scheduling-platform-rwwk.vercel.app'
+];
+
 app.use(cors({
-    origin: ['http://localhost:5173','https://smart-scheduling-platform-rwwk.vercel.app/' ],
-    credentials: true 
+    origin: function (origin, callback) {
+        if (!origin) {
+            return callback(null, true);
+        }
+
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+
+        console.log('CORS blocked origin:', origin);
+        return callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    optionsSuccessStatus: 204
 }));
+
 // app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/' , (req, res) =>{
