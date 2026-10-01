@@ -27,13 +27,13 @@ const jwt = require('jsonwebtoken');
         id: admin._id,
     }, process.env.JWT_SECRET)
 
-    res.cookie("token" ,token),{
+    res.cookie("token" ,token,{
         httpOnly:true,
         secure:true,
         sameSite:'lax',
         path:'/',
         expires: new Date(Date.now() + 24 * 60 * 60 * 1000),  // 1 days
-    };
+    });
     res.status(201).json({
         message:"Admin registered successfully",
         admin:{
@@ -50,7 +50,7 @@ const jwt = require('jsonwebtoken');
     const admin = await adminModel.findOne({email});
 
     if(!admin){
-        res.status(400).json({
+        return res.status(400).json({
             message:"Invalid email or password"
         })
     }
