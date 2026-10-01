@@ -10,7 +10,7 @@ const subjectRoutes = require('./routes/subject.routes');
 const sectionRoutes = require('./routes/section.routes');
 const timetableRoutes = require('./routes/timetable.routes')
 const dashboardRoutes = require('./routes/dashboard.routes')
-const path = require('path');
+// const path = require('path');
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -19,7 +19,7 @@ app.use(cors({
     origin: ['http://localhost:5173','https://smart-scheduling-platform.vercel.app','https://smart-scheduling-platform-qmv4.onrender.com' ],
     credentials: true 
 }));
-app.use(express.static(path.join(__dirname, '../public')));
+// app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/' , (req, res) =>{
     res.send("server started");
@@ -39,8 +39,8 @@ app.use('/api/timetables' , timetableRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
 
-app.get('*name' , (req ,res)=>{
-    res.sendFile(path.join(__dirname,  '../public/index.html'));
-})
+// app.get('*name' , (req ,res)=>{
+//     res.sendFile(path.join(__dirname,  '../public/index.html'));
+// })
 
 module.exports = app;
